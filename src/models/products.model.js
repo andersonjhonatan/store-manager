@@ -13,4 +13,12 @@ const getProductsId = async (id) => {
   return result[0];
 };
 
-module.exports = { getAllProducts, getProductsId };
+const createProducts = async (name) => {
+  const [{ insertId }] = await connection.execute(
+    'INSERT INTO products (name) VALUES (?);',
+    [name],
+  );
+  return { id: insertId, name };
+};
+
+module.exports = { getAllProducts, getProductsId, createProducts };

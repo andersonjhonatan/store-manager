@@ -11,8 +11,16 @@ const getProductsControllerID = {
   get: async (req, res) => {
     const { id } = req.params;
     const productsID = await productsService.getProductsServiceID(id);
-    return res.status(200).json(productsID);
+    return res.status(201).json(productsID);
   },
 };
 
-module.exports = { getAllProductsController, getProductsControllerID };
+const createProductsController = {
+  post: async (req, res) => {
+    const { name } = req.body;
+    const products = await productsService.createProducts(name);
+    return res.status(201).send(products);
+  },
+};
+
+module.exports = { getAllProductsController, getProductsControllerID, createProductsController };
