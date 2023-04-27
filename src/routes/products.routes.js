@@ -10,6 +10,7 @@ router.get(
   productsValidator,
   productsController.getProductsControllerID.get,
 );
-router.post('/products', productsController.createProductsController.post);
+router.post('/products',
+  productsController.createProductsController.post);
 
 module.exports = router;

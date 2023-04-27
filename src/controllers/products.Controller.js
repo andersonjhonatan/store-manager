@@ -11,7 +11,7 @@ const getProductsControllerID = {
   get: async (req, res) => {
     const { id } = req.params;
     const productsID = await productsService.getProductsServiceID(id);
-    return res.status(201).json(productsID);
+    return res.status(200).json(productsID);
   },
 };
 
