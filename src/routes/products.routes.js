@@ -2,7 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 const productsController = require('../controllers/products.Controller');
-const productsValidator = require('../middlewares/productsValidator');
+const {
+  productsValidator,
+  validateNameIsRequired,
+} = require('../middlewares/productsValidator');
 
 router.get('/products', productsController.getAllProductsController.get);
 router.get(
@@ -10,7 +13,10 @@ router.get(
   productsValidator,
   productsController.getProductsControllerID.get,
 );
-router.post('/products',
-  productsController.createProductsController.post);
+router.post(
+  '/products',
+  validateNameIsRequired,
+  productsController.createProductsController.post,
+);
 
 module.exports = router;
