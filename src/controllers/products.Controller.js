@@ -14,4 +14,5 @@ const getProductsControllerID = {
     return res.status(200).json(productsID);
   },
 };
+
 module.exports = { getAllProductsController, getProductsControllerID };
