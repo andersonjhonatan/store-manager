@@ -17,4 +17,23 @@ const postAllSalesController = {
     return res.status(201).json(result);
   },
 };
-module.exports = postAllSalesController;
+
+const getSalesController = {
+  get: async (req, res) => {
+    const productSales = await postSalesService.getBySales();
+    return res.status(200).json(productSales);
+  },
+};
+
+const getSaleById = {
+  get: async (req, res) => {
+    const { id } = req.params;
+    const productsID = await postSalesService.getSalesById(id);
+    const newSales = productsID.map(({ saleId, ...rest }) => rest);
+    if (!newSales.length) {
+      return res.status(404).json({ message: 'Sale not found' });
+    }
+    return res.status(200).json(newSales);
+  },
+};
+module.exports = { postAllSalesController, getSalesController, getSaleById };
