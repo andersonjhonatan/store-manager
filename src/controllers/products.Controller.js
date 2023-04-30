@@ -23,4 +23,19 @@ const createProductsController = {
   },
 };
 
-module.exports = { getAllProductsController, getProductsControllerID, createProductsController };
+const putProductController = {
+  put: async (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
+    const newProducts = { id, name };
+    await productsService.putIdProductsService(name, id);
+    return res.status(200).json(newProducts);
+  },
+};
+
+module.exports = {
+  getAllProductsController,
+  getProductsControllerID,
+  createProductsController,
+  putProductController,
+};

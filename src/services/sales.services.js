@@ -10,8 +10,8 @@ const getBySales = async () => {
   return prdoctSales;
 };
 
-const getSalesById = async (id) => {
-  const salesId = await getAllSalesModel.getSalesById(id);
+const getSalesById = async (name, id) => {
+  const salesId = await getAllSalesModel.getSalesById(name, id);
   return salesId;
 };
 
