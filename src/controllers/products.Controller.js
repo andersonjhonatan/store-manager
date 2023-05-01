@@ -38,9 +38,18 @@ const putProductController = {
   },
 };
 
+const deleteProducts = {
+  delete: async (req, res) => {
+    const { id } = req.params;
+    await productsService.deleteProductsService(id);
+    return res.status(204).end();
+  },
+};
+
 module.exports = {
   getAllProductsController,
   getProductsControllerID,
   createProductsController,
   putProductController,
+  deleteProducts,
 };
