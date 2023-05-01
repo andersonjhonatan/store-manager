@@ -1,18 +1,23 @@
 const getAllSalesModel = require('../models/sales.model');
 
 const postAllSaleServices = async (sales, salesIds) => {
-  const result = await getAllSalesModel.registerSales(sales, salesIds);
-  return result;
+  const salesResult = await getAllSalesModel.registerSales(sales, salesIds);
+  return salesResult;
 };
 
 const getBySales = async () => {
-  const prdoctSales = await getAllSalesModel.getSales();
-  return prdoctSales;
+  const salesResult = await getAllSalesModel.getSales();
+  return salesResult;
 };
 
 const getSalesById = async (name, id) => {
-  const salesId = await getAllSalesModel.getSalesById(name, id);
-  return salesId;
+  const salesResult = await getAllSalesModel.getSalesById(name, id);
+  return salesResult;
 };
 
-module.exports = { postAllSaleServices, getBySales, getSalesById };
+const deleteSales = async (id) => {
+  const salesResult = await getAllSalesModel.deleteSalesId(id);
+  return salesResult;
+};
+
+module.exports = { postAllSaleServices, getBySales, getSalesById, deleteSales };

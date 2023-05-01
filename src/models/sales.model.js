@@ -58,8 +58,12 @@ const getSalesById = async (id) => {
     ORDER BY sp.sale_id ASC;`,
     [id],
   );
-
   return salesById;
 };
 
-module.exports = { registerSales, getSales, getSalesById };
+const deleteSalesId = async (id) => {
+  const [result] = await connection.execute('DELETE FROM sales WHERE id = ?', [id]);
+  return result;
+};
+
+module.exports = { registerSales, getSales, getSalesById, deleteSalesId };

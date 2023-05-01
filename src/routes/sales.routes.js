@@ -1,11 +1,12 @@
 const express = require('express');
 const salesController = require('../controllers/sales.Controller');
-const validateSales = require('../middlewares/salesValidator');
+const { salesValidators, saleNotFound } = require('../middlewares/salesValidator');
 
 const router = express.Router();
 
-router.post('/sales', validateSales, salesController.postAllSalesController.post);
+router.post('/sales', salesValidators, salesController.postAllSalesController.post);
 router.get('/sales', salesController.getSalesController.get);
 router.get('/sales/:id', salesController.getSaleById.get);
+router.delete('/sales/:id', saleNotFound, salesController.deleteSales.delete);
 
 module.exports = router;

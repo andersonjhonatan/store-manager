@@ -1,4 +1,6 @@
-module.exports = (req, res, next) => {
+const sales = require('../models/sales.model');
+
+const salesValidators = (req, res, next) => {
   const { body } = req;
 
   if (body.some(({ productId }) => !productId)) {
@@ -17,3 +19,15 @@ module.exports = (req, res, next) => {
 
   next();
 };
+
+const saleNotFound = async (req, res, next) => {
+  const result = req.params.id;
+  const salesResult = await sales.deleteSalesId(result);
+  if (!salesResult.affectedRows) {
+    return res.status(404).json({ message: 'Sale not found' });
+  }
+
+  next();
+};
+
+module.exports = { salesValidators, saleNotFound };

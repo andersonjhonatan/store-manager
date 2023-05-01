@@ -1,4 +1,4 @@
-const postSalesService = require('../services/sales.services');
+const salesService = require('../services/sales.services');
 
 const postAllSalesController = {
   post: async (req, res) => {
@@ -6,10 +6,7 @@ const postAllSalesController = {
 
     const productIds = sales.map(({ productId }) => productId);
 
-    const result = await postSalesService.postAllSaleServices(
-      sales,
-      productIds,
-    );
+    const result = await salesService.postAllSaleServices(sales, productIds);
 
     if (!result || result.status === 404) {
       return res.status(404).json({ message: 'Product not found' });
@@ -20,7 +17,7 @@ const postAllSalesController = {
 
 const getSalesController = {
   get: async (req, res) => {
-    const productSales = await postSalesService.getBySales();
+    const productSales = await salesService.getBySales();
     return res.status(200).json(productSales);
   },
 };
@@ -28,7 +25,7 @@ const getSalesController = {
 const getSaleById = {
   get: async (req, res) => {
     const { id } = req.params;
-    const productsID = await postSalesService.getSalesById(id);
+    const productsID = await salesService.getSalesById(id);
     const newSales = productsID.map(({ saleId, ...rest }) => rest);
     if (!newSales.length) {
       return res.status(404).json({ message: 'Sale not found' });
@@ -36,4 +33,18 @@ const getSaleById = {
     return res.status(200).json(newSales);
   },
 };
-module.exports = { postAllSalesController, getSalesController, getSaleById };
+
+const deleteSales = {
+  delete: async (req, res) => {
+    const { id } = req.params;
+    await salesService.deleteSales(id);
+    return res.status(204).end();
+  },
+};
+
+module.exports = {
+  postAllSalesController,
+  getSalesController,
+  getSaleById,
+  deleteSales,
+};
