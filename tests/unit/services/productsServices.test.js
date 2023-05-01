@@ -5,6 +5,8 @@ const productService = require("../../../src/services/products.services");
 const {
   getAllMocksService,
   getProductsIdMock,
+  nameValidate,
+  id
 } = require("./mocks/productsMocksService");
 
 describe("No mínimo 5% de linhas e tenha no mínimo 2 funções escritas nas camadas da sua aplicação", () => {
@@ -21,7 +23,20 @@ describe("No mínimo 5% de linhas e tenha no mínimo 2 funções escritas nas ca
       expect(result).to.contains.keys("id");
       expect(result).to.contains.keys("name");
       expect(result).to.be.an("object");
-
+    });
+    it("3 função na camada de Services", async () => {
+      sinon.stub(connection, "execute").resolves([getProductsIdMock]);
+      const result = await productService.createProducts(nameValidate);
+      expect(result).to.contains.keys("id");
+      expect(result).to.contains.keys("name");
+      expect(result).to.be.an("object");
+    });
+    it("4 função na camada de Services", async () => {
+      sinon.stub(connection, "execute").resolves([getProductsIdMock]);
+      const result = await productService.putIdProductsService(nameValidate, id);
+      expect(result).to.contains.keys("id");
+      expect(result).to.contains.keys("products");
+      expect(result).to.be.an("object");
     });
   });
 });

@@ -18,8 +18,13 @@ const getProductsControllerID = {
 const createProductsController = {
   post: async (req, res) => {
     const { name } = req.body;
-    const products = await productsService.createProducts(name);
-    return res.status(201).send(products);
+    try {
+      const product = await productsService.createProducts(name);
+      return res.status(201).json(product);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
   },
 };
 
@@ -27,7 +32,7 @@ const putProductController = {
   put: async (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
-    const newProducts = { id, name };
+    const newProducts = { name, id };
     await productsService.putIdProductsService(name, id);
     return res.status(200).json(newProducts);
   },

@@ -49,8 +49,58 @@ describe("No mínimo 5% de linhas e tenha no mínimo 2 funções escritas nas ca
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith({
         id: 1,
-        name: 'Martelo de Thor',
+        name: "Martelo de Thor",
       });
+    });
+    it("Deve retornar a criação de um novo produto", async () => {
+      const req = { body: { name: "Martelo do Batman" } };
+      const res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.stub().returnsThis(),
+      };
+
+      sinon
+        .stub(productsService, "createProducts")
+        .resolves(getProductMockIdControllers);
+
+      await productsController.createProductsController.post(req, res);
+
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith(getProductMockIdControllers);
+    });
+
+    it("Deve retornar um erro 500 em caso de falha na criação de um novo produto", async () => {
+      const req = { body: { name: "Martelo do Batman" } };
+      const res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.stub().returnsThis(),
+      };
+      sinon
+        .stub(productsService, "createProducts")
+        .throws(new Error("Database error"));
+
+      await productsController.createProductsController.post(req, res);
+
+      expect(res.status).to.have.been.calledWith(500);
+      expect(res.json).to.have.been.calledWith({
+        message: "Internal server error",
+      });
+    });
+    it("Deve retornar a alteração de um novo produto", async () => {
+      const req = { params: { id: 1 }, body: { name: "Martelo de Thor" } };
+      const res = {
+        status: sinon.stub().returnsThis(),
+        json: sinon.stub().returnsThis(),
+      };
+
+      sinon
+        .stub(productsService, "putIdProductsService")
+        .resolves(getProductMockIdControllers);
+
+      await productsController.putProductController.put(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(getProductMockIdControllers);
     });
   });
 });
