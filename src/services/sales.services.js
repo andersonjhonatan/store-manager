@@ -20,4 +20,19 @@ const deleteSales = async (id) => {
   return salesResult;
 };
 
-module.exports = { postAllSaleServices, getBySales, getSalesById, deleteSales };
+const putSales = async (body, productsIds, saleId) => {
+  const salesResult = await getAllSalesModel.putSales(
+    body,
+    productsIds,
+    saleId,
+  );
+  return salesResult;
+};
+
+module.exports = {
+  postAllSaleServices,
+  getBySales,
+  getSalesById,
+  deleteSales,
+  putSales,
+};

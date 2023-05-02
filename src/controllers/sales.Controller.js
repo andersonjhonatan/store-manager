@@ -42,9 +42,28 @@ const deleteSales = {
   },
 };
 
+const putsalesController = {
+  put: async (req, res) => {
+    const { id } = req.params;
+    const sales = req.body;
+
+    const productIds = sales.map(({ productId }) => productId);
+
+    const result = await salesService.putSales(sales, productIds, id);
+
+    if (result.status) {
+      const { message, status } = result;
+      return res.status(status).json({ message });
+    }
+
+    return res.status(200).json({ saleId: id, itemsUpdated: sales });
+  },
+};
+
 module.exports = {
   postAllSalesController,
   getSalesController,
   getSaleById,
   deleteSales,
+  putsalesController,
 };
