@@ -17,7 +17,7 @@ const createProducts = async (name) => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO products (name) VALUES (?);',
     [name],
-    );
+  );
   return { id: insertId, name };
 };
 
@@ -30,8 +30,19 @@ const putProductId = async (name, id) => {
 };
 
 const deleteProducts = async (id) => {
-  const [result] = await connection.execute('DELETE FROM products WHERE id = ?', [id]);
+  const [result] = await connection.execute(
+    'DELETE FROM products WHERE id = ?',
+    [id],
+  );
   return result;
+};
+
+const searchProducts = async (name) => {
+  const [products] = await connection.execute(
+    'SELECT id, name FROM products WHERE name LIKE ?',
+    [`%${name}%`],
+  );
+  return products;
 };
 
 module.exports = {
@@ -40,4 +51,5 @@ module.exports = {
   createProducts,
   putProductId,
   deleteProducts,
+  searchProducts,
 };

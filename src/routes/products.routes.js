@@ -7,7 +7,7 @@ const {
   validateNameIsRequired,
 } = require('../middlewares/productsValidator');
 
-router.get('/products', productsController.getAllProductsController.get);
+router.get('/products/search', productsController.searchNamesProducts.get);
 
 router.get(
   '/products/:id',
@@ -15,17 +15,19 @@ router.get(
   productsController.getProductsControllerID.get,
 );
 
-router.post(
-  '/products',
-  validateNameIsRequired,
-  productsController.createProductsController.post,
-);
+router.get('/products', productsController.getAllProductsController.get);
 
-router.put('/products/:id',
-  productsValidator,
-  validateNameIsRequired,
-  productsController.putProductController.put);
+  router.post(
+    '/products',
+    validateNameIsRequired,
+    productsController.createProductsController.post,
+    );
 
-router.delete('/products/:id', productsValidator, productsController.deleteProducts.delete);
+    router.put('/products/:id',
+    productsValidator,
+    validateNameIsRequired,
+    productsController.putProductController.put);
 
-module.exports = router;
+    router.delete('/products/:id', productsValidator, productsController.deleteProducts.delete);
+
+    module.exports = router;

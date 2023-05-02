@@ -46,10 +46,19 @@ const deleteProducts = {
   },
 };
 
+const searchNamesProducts = {
+  get: async (req, res) => {
+    const { q } = req.query;
+    const results = await productsService.searchNameService(q);
+    return res.status(200).json(results);
+  },
+};
+
 module.exports = {
   getAllProductsController,
   getProductsControllerID,
   createProductsController,
   putProductController,
   deleteProducts,
+  searchNamesProducts,
 };
