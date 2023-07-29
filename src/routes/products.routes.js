@@ -1,33 +1,39 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
-const productsController = require('../controllers/products.Controller');
+const productsController = require("../controllers/products.Controller");
 const {
   productsValidator,
   validateNameIsRequired,
-} = require('../middlewares/productsValidator');
+} = require("../middlewares/productsValidator");
 
-router.get('/products/search', productsController.searchNamesProducts.get);
+router.get("/products/search", productsController.searchNamesProducts.get);
 
 router.get(
-  '/products/:id',
+  "/products/:id",
   productsValidator,
-  productsController.getProductsControllerID.get,
+  productsController.getProductsControllerID.get
 );
 
-router.get('/products', productsController.getAllProductsController.get);
+router.get("/products", productsController.getAllProductsController.get);
 
-  router.post(
-    '/products',
-    validateNameIsRequired,
-    productsController.createProductsController.post,
-    );
+router.post(
+  "/products",
+  validateNameIsRequired,
+  productsController.createProductsController.post
+);
 
-    router.put('/products/:id',
-    productsValidator,
-    validateNameIsRequired,
-    productsController.putProductController.put);
+router.put(
+  "/products/:id",
+  productsValidator,
+  validateNameIsRequired,
+  productsController.putProductController.put
+);
 
-    router.delete('/products/:id', productsValidator, productsController.deleteProducts.delete);
+router.delete(
+  "/products/:id",
+  productsValidator,
+  productsController.deleteProducts.delete
+);
 
-    module.exports = router;
+module.exports = router;
